@@ -8,9 +8,6 @@ shadowrun_mode = set()
 
 IGNORED_COMMANDS = frozenset(["levels", "rank"])
 
-LIST_CHOICE_PATTERN = re_compile("\d*[ul].*")
-DICES_PATTERN = re_compile("\d*[ed]")
-
 def run_cmd(cmd: str, user_id) -> str:
     """Returns a non-markdwon-formated message to display, or None. Catches DiceIOError. Doesn't except a '!'"""
 
@@ -28,10 +25,10 @@ def run_cmd(cmd: str, user_id) -> str:
         return "Mode shadowrun activé"
 
     try:
-        if match(DICES_PATTERN, cmd): 
+        if "d" in cmd or "e" in cmd: 
             return run_dices_cmd(cmd.replace(" ", ""), user_id in shadowrun_mode)
         
-        if match(LIST_CHOICE_PATTERN, cmd):
+        if "u" in cmd or "l" in cmd:
             return run_choice_command(cmd)
 
         return "Commande inconnue"
