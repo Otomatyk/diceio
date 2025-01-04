@@ -17,7 +17,7 @@ def run_cmd(cmd: str, user_id) -> str:
     if cmd in IGNORED_COMMANDS:
         return
 
-    cmd = cmd.lower().replace(" ", "")
+    cmd = cmd.lower()
 
     if cmd == "sr":
         if user_id in shadowrun_mode:
@@ -29,7 +29,7 @@ def run_cmd(cmd: str, user_id) -> str:
 
     try:
         if match(DICES_PATTERN, cmd): 
-            return run_dices_cmd(cmd, False)
+            return run_dices_cmd(cmd.replace(" ", ""), False)
         
         if match(LIST_CHOICE_PATTERN, cmd):
             return run_choice_command(cmd)

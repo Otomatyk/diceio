@@ -15,6 +15,7 @@ def run_choice_command(cmd: str) -> str:
 
 CHOICE_NUMBER_PATTERN = re_compile("^\d+")
 CHOICE_TYPE_PATTERN = re_compile("^[ul]")
+SPACE_PATTERN = re_compile("^\s+")
 
 class ChoiceType(StrEnum):
     unique = "unique"
@@ -29,7 +30,8 @@ class ChoiceCommandRunner(Parser):
         self.parse_choice_number()
         self.parse_choice_type()
 
-        self.cmd = self.cmd.lstrip()
+        self.consume_or_fail(SPACE_PATTERN, "Au moins un espace était attendu")
+
         fail_if(self.cmd == "", "Une liste de choix était attendue, mais rien n'a été trouvé")
 
         self.parse_choices()
