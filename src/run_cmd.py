@@ -40,7 +40,3 @@ def run_cmd(cmd: str, user_id) -> str:
 
     except Exception as err:
         return f"Une erreur inconnue s'est produite. Merci de contactez le propriétaire pour corriger cela :\n{err}"
-
-
-while True:
-    print(run_cmd(input("> "), 1))
