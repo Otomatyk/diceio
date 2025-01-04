@@ -25,7 +25,9 @@ def run_cmd(cmd: str, user_id) -> str:
         return "Mode shadowrun activé"
 
     try:
-        if "d" in cmd or "e" in cmd: 
+        if "d" in cmd \
+            or "e" in cmd \
+             
             return run_dices_cmd(cmd.replace(" ", ""), user_id in shadowrun_mode)
         
         if "u" in cmd or "l" in cmd:
@@ -38,3 +40,7 @@ def run_cmd(cmd: str, user_id) -> str:
 
     except Exception as err:
         return f"Une erreur inconnue s'est produite. Merci de contactez le propriétaire pour corriger cela :\n{err}"
+
+
+while True:
+    print(run_cmd(input("> "), 1))
