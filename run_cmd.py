@@ -29,7 +29,7 @@ def run_cmd(cmd: str, user_id) -> str:
 
     try:
         if match(DICES_PATTERN, cmd): 
-            return run_dices_cmd(cmd.replace(" ", ""), False)
+            return run_dices_cmd(cmd.replace(" ", ""), user_id in shadowrun_mode)
         
         if match(LIST_CHOICE_PATTERN, cmd):
             return run_choice_command(cmd)
@@ -40,4 +40,4 @@ def run_cmd(cmd: str, user_id) -> str:
         return f"Erreur : \n{err.message}"
 
     except Exception as err:
-        return f"Une erruer inconnue s'est produite. Merci de contactez le propriétaire pour corriger cela :\n{err.message}"
+        return f"Une erreur inconnue s'est produite. Merci de contactez le propriétaire pour corriger cela :\n{err}"

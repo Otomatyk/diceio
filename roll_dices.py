@@ -16,7 +16,7 @@ def run_dices_cmd(cmd: str, user_in_sr_mode: bool) -> str:
 
     # Shadowrun mode
     if user_in_sr_mode and len(tokens) == 2:
-        parsed = DiceParser(token)
+        parsed = DiceParser(tokens[1])
 
         if parsed.dice_side == 6 \
                 and parsed.keep == None \
@@ -25,9 +25,9 @@ def run_dices_cmd(cmd: str, user_in_sr_mode: bool) -> str:
 
             dices = [randint(1, 6) for _ in range(parsed.dice_number)]
             
-            return f"""Nombre de 6 : {dices.count(6)}
+            return f"""Nombre de 6   : {dices.count(6)}
 Nombre de 5/6 : {dices.count(6) + dices.count(5)}
-Nombre de 1 : {dices.count(1)}
+Nombre de 1   : {dices.count(1)}
 """
 
     sum_ = 0
