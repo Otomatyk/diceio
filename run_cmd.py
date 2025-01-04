@@ -37,4 +37,7 @@ def run_cmd(cmd: str, user_id) -> str:
         return "Commande inconnue"
 
     except DiceIOError as err:
-        return f"Une erreur s'est produite.\n{err.message}"
+        return f"Erreur : \n{err.message}"
+
+    except Exception as err:
+        return f"Une erruer inconnue s'est produite. Merci de contactez le propriétaire pour corriger cela :\n{err.message}"
