@@ -6,7 +6,7 @@ from roll_dices import run_dices_cmd
 
 shadowrun_mode = set()
 
-IGNORED_COMMANDS = frozenset(["levels", "rank"])
+IGNORED_COMMANDS = frozenset(["levels", "rank", ""])
 
 def run_cmd(cmd: str, user_id) -> str:
     """Returns a non-markdwon-formated message to display, or None. Catches DiceIOError. Doesn't except a '!'"""
