@@ -34,8 +34,6 @@ class ChoiceCommandRunner(Parser):
 
         self.parse_choices()
 
-        print(self.choice_number, self.choice_type, self.choices)
-
     def parse_choice_number(self):
         choice_number = self.consume_or_none(CHOICE_NUMBER_PATTERN)
 
