@@ -4,7 +4,7 @@ from parse_dices import DiceType, DiceParser
 from utils import DiceIOError, fail_if
 
 
-ARTIMETHIC_OPERATOR = re_compile("(\+|(?<!k)\-)")
+ARTIMETHIC_OPERATOR = re_compile("(\+|(?<!(k|\[.))\-)")
 
 def run_dices_cmd(cmd: str, user_in_sr_mode: bool) -> str:
     cmd = cmd.lower().replace(" ", "")

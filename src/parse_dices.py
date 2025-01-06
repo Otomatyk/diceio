@@ -9,8 +9,7 @@ DICE_NUMBER_PATTERN = re_compile("^\d+")
 DICE_TYPE_PATTERN = re_compile("^(d|e)")
 DICE_SIDE_PATTERN = re_compile("^\d+")
 KEEP_PATTERN = re_compile("(?<=^k)((-)?\d+)")
-FILTER_PATTERN = re_compile("^\[(\>|\<|\=|\!)\d+\]")
-COUNT_PATTERN = re_compile("^c\[(\>|\<|\=|\!)\d+\]")
+FILTER_PATTERN = re_compile("^\[.(\-)?\d+\]")
 
 class DiceType(StrEnum):
     explode = "explode"
@@ -26,16 +25,19 @@ class DiceParser(Parser):
         self.dice_type = self.parse_dice_type()
         self.dice_side = self.parse_dice_side()
         self.sort = self.parse_sort()
-        self.keep = self.parse_keep()
         self.filter = self.parse_filter()
+        self.keep = self.parse_keep()
 
         fail_if(self.cmd != "", f"Instructions inconnues : '{self.cmd}'")
         
     def condition_to_func(self, condition: str):
         """Create a filter-function from a condition such as `>5` or `=1`"""
-        target_number = int(condition[1:]), 
+        target_number = int(condition[1:])
+        operator = condition[0]
 
-        match condition[0]:
+        fail_if(target_number < 1, "Le nombre cible du filtre doit être supérieur ou égal à 1")
+
+        match operator:
             case "!":
                 return lambda i: i != target_number
 
@@ -48,7 +50,7 @@ class DiceParser(Parser):
             case "<":
                 return lambda i: i < target_number
 
-        raise DiceIOError(f"Opérateur inconnu : {operator}")
+        raise DiceIOError(f"Opérateur inconnu pour le filtre : '{operator}'")
     
     def parse_dice_number(self) -> int:
         dice_number = self.consume_or_none(DICE_NUMBER_PATTERN)
