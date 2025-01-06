@@ -39,7 +39,7 @@ class ChoiceCommandRunner(Parser):
     def parse_choice_number(self):
         choice_number = self.consume_or_none(CHOICE_NUMBER_PATTERN)
 
-        if not choice_number:
+        if choice_number is None:
             self.choice_number = 1 
             return
 

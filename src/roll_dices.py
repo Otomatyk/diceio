@@ -7,8 +7,6 @@ from utils import DiceIOError, fail_if
 ARTIMETHIC_OPERATOR = re_compile("(\+|(?<!(k|\[.))\-)")
 
 def run_dices_cmd(cmd: str, user_in_sr_mode: bool) -> str:
-    cmd = cmd.lower().replace(" ", "")
-
     tokens = ["+"] + split(ARTIMETHIC_OPERATOR, cmd)
 
     # Somehow there are sometimes empty tokens, instead of fixing it we just remove them 

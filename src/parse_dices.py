@@ -1,6 +1,5 @@
 from enum import StrEnum
 from regex import compile as re_compile, search
-from random import randint, shuffle
 from utils import DiceIOError, fail_if
 from parser import Parser
 
@@ -55,7 +54,7 @@ class DiceParser(Parser):
     def parse_dice_number(self) -> int:
         dice_number = self.consume_or_none(DICE_NUMBER_PATTERN)
         
-        if not dice_number:
+        if dice_number is None:
             return 1
             
         dice_number = int(dice_number)

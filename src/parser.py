@@ -1,7 +1,6 @@
-from random import randint, shuffle
-from regex import search
-from functools import wraps
-from utils import fail_if
+import regex
+import functools
+import utils
 
 
 class Parser:
@@ -9,9 +8,9 @@ class Parser:
         self.cmd = cmd
 
     def consume_or_none(self, pattern) -> str | None:
-        result = search(pattern, self.cmd)
+        result = regex.search(pattern, self.cmd)
 
-        if not result:
+        if result is None:
             return None
         
         group = result.group()
@@ -22,18 +21,18 @@ class Parser:
     def consume_or_fail(self, pattern, error_message) -> str:
         result = self.consume_or_none(pattern)
 
-        fail_if(result is None, error_message)
+        utils.fail_if(result is None, error_message)
 
         return result
 
     @staticmethod
     def if_consume_succesed(pattern):
         def decorator(fn):
-            @wraps(fn)
+            @functools.wraps(fn)
             def decorated(self):
                 consumed = self.consume_or_none(pattern)
                 
-                if not consumed:
+                if consumed is None:
                     return None
                     
                 return fn(self, consumed)
