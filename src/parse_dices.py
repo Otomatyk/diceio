@@ -24,8 +24,8 @@ class DiceParser(Parser):
         self.dice_type = self.parse_dice_type()
         self.dice_side = self.parse_dice_side()
         self.sort = self.parse_sort()
-        self.filter = self.parse_filter()
         self.keep = self.parse_keep()
+        self.filter = self.parse_filter()
 
         fail_if(self.cmd != "", f"Instructions inconnues : '{self.cmd}'")
         
