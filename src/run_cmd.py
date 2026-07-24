@@ -8,8 +8,8 @@ shadowrun_mode = set()
 
 IGNORED_COMMANDS = frozenset(["levels", "rank", ""])
 
-DICES_CMD_PATTERN = re_compile("^\d*[de].*")
-CHOICES_CMD_PATTERN = re_compile("^\d*[lu].*")
+DICES_CMD_PATTERN = re_compile(r"^\d*[de].*")
+CHOICES_CMD_PATTERN = re_compile(r"^\d*[lu].*")
 
 def run_cmd(cmd: str, user_id) -> str:
     """Returns a non-markdwon-formated message to display, or None. Catches DiceIOError. Doesn't except a '!'"""

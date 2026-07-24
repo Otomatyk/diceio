@@ -4,11 +4,11 @@ from utils import DiceIOError, fail_if
 from parser import Parser
 
 
-DICE_NUMBER_PATTERN = re_compile("^\d+")
-DICE_TYPE_PATTERN = re_compile("^(d|e)")
-DICE_SIDE_PATTERN = re_compile("^\d+")
-KEEP_PATTERN = re_compile("(?<=^k)((-)?\d+)")
-FILTER_PATTERN = re_compile("^\[.(\-)?\d+\]")
+DICE_NUMBER_PATTERN = re_compile(r"^\d+")
+DICE_TYPE_PATTERN = re_compile(r"^(d|e)")
+DICE_SIDE_PATTERN = re_compile(r"^\d+")
+KEEP_PATTERN = re_compile(r"(?<=^k)((-)?\d+)")
+FILTER_PATTERN = re_compile(r"^\[.(\-)?\d+\]")
 
 class DiceType(StrEnum):
     explode = "explode"
