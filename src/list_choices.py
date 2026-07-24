@@ -1,9 +1,12 @@
 from enum import StrEnum
 from regex import compile as re_compile
 from random import sample, choices
-from utils import fail_if
-from parser import Parser
-
+try:
+    from .utils import fail_if
+    from .parser import Parser
+except ImportError:
+    from utils import fail_if
+    from parser import Parser
 
 def format(choices_: list[str]) -> str:
     return ", ".join(choices_)

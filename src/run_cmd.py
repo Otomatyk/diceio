@@ -1,8 +1,12 @@
 from regex import compile as re_compile, match
-from utils import DiceIOError
-from list_choices import run_choice_command
-from roll_dices import run_dices_cmd
-
+try:
+    from .utils import DiceIOError
+    from .list_choices import run_choice_command
+    from .roll_dices import run_dices_cmd
+except ImportError:
+    from utils import DiceIOError
+    from list_choices import run_choice_command
+    from roll_dices import run_dices_cmd
 
 shadowrun_mode = set()
 
