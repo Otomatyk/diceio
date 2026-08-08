@@ -58,8 +58,7 @@ Nombre de 1   : {dices.count(1)}
 
 def format_result(sum_: int, result: list[int]) -> str:
     return f"""# {sum_}
-{", ".join(map(str, result))}
-    """
+{", ".join(map(str, result))}"""
 
 def roll_dices(parsed: DiceParser) -> list[int]:
     """Returns a non-markdwon-formated message to display"""
