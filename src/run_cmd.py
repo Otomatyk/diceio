@@ -1,15 +1,19 @@
 from regex import compile as re_compile, match
-from utils import DiceIOError
-from list_choices import run_choice_command
-from roll_dices import run_dices_cmd
-
+try:
+    from .utils import DiceIOError
+    from .list_choices import run_choice_command
+    from .roll_dices import run_dices_cmd
+except ImportError:
+    from utils import DiceIOError
+    from list_choices import run_choice_command
+    from roll_dices import run_dices_cmd
 
 shadowrun_mode = set()
 
 IGNORED_COMMANDS = frozenset(["levels", "rank", ""])
 
-DICES_CMD_PATTERN = re_compile("^\d*[de].*")
-CHOICES_CMD_PATTERN = re_compile("^\d*[lu].*")
+DICES_CMD_PATTERN = re_compile(r"^\d*[de].*")
+CHOICES_CMD_PATTERN = re_compile(r"^\d*[lu].*")
 
 def run_cmd(cmd: str, user_id) -> str:
     """Returns a non-markdwon-formated message to display, or None. Catches DiceIOError. Doesn't except a '!'"""

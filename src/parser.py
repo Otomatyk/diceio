@@ -1,7 +1,9 @@
 import regex
 import functools
-import utils
-
+try:
+    from . import utils
+except ImportError:
+    import utils
 
 class Parser:
     def __init__(self, cmd: str):        

@@ -1,9 +1,12 @@
 from enum import StrEnum
 from regex import compile as re_compile
 from random import sample, choices
-from utils import fail_if
-from parser import Parser
-
+try:
+    from .utils import fail_if
+    from .parser import Parser
+except ImportError:
+    from utils import fail_if
+    from parser import Parser
 
 def format(choices_: list[str]) -> str:
     return ", ".join(choices_)
@@ -13,9 +16,9 @@ def run_choice_command(cmd: str) -> str:
         ChoiceCommandRunner(cmd).pick()
     )
 
-CHOICE_NUMBER_PATTERN = re_compile("^\d+")
-CHOICE_TYPE_PATTERN = re_compile("^[ul]")
-SPACE_PATTERN = re_compile("^\s+")
+CHOICE_NUMBER_PATTERN = re_compile(r"^\d+")
+CHOICE_TYPE_PATTERN = re_compile(r"^[ul]")
+SPACE_PATTERN = re_compile(r"^\s+")
 
 class ChoiceType(StrEnum):
     unique = "unique"

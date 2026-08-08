@@ -1,10 +1,13 @@
 from random import randint, shuffle
 from regex import split, compile as re_compile
-from parse_dices import DiceType, DiceParser
-from utils import DiceIOError, fail_if
+try:
+    from .parse_dices import DiceType, DiceParser
+    from .utils import DiceIOError, fail_if
+except ImportError:
+    from parse_dices import DiceType, DiceParser
+    from utils import DiceIOError, fail_if
 
-
-ARTIMETHIC_OPERATOR = re_compile("(\+|(?<!(k|\[.))\-)")
+ARTIMETHIC_OPERATOR = re_compile(r"(\+|(?<!(k|\[.))\-)")
 
 def run_dices_cmd(cmd: str, user_in_sr_mode: bool) -> str:
     tokens = ["+"] + split(ARTIMETHIC_OPERATOR, cmd)
