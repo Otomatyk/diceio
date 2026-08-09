@@ -8,7 +8,7 @@ except ImportError:
     from parser import Parser
 
 DICE_NUMBER_PATTERN = re_compile(r"^\d+")
-DICE_TYPE_PATTERN = re_compile(r"^(d|e)")
+DICE_TYPE_PATTERN = re_compile(r"^(ud|d|e)")
 DICE_SIDE_PATTERN = re_compile(r"^\d+")
 KEEP_PATTERN = re_compile(r"(?<=^k)((-)?\d+)")
 FILTER_PATTERN = re_compile(r"^\[.(\-)?\d+\]")
@@ -16,6 +16,7 @@ FILTER_PATTERN = re_compile(r"^\[.(\-)?\d+\]")
 class DiceType(StrEnum):
     explode = "explode"
     classic = "classic"
+    unique = "unique"
 
 class DiceParser(Parser):
     def __init__(self, cmd: str):
@@ -69,10 +70,16 @@ class DiceParser(Parser):
     def parse_dice_type(self) -> DiceType:
         dice_type = self.consume_or_fail(
             DICE_TYPE_PATTERN,
-            f"'e' ou 'd' étaient attendus mais '{self.cmd[0]}' a été trouvé"
+            f"'e', 'd' ou 'ud' étaient attendus mais '{self.cmd[0]}' a été trouvé"
         )
+        match dice_type:
+            case "e":
+                return DiceType.explode
+            case "ud":
+                return DiceType.unique
+            case _:
+                return DiceType.classic
 
-        return DiceType.explode if dice_type == "e" else DiceType.classic
 
     def parse_dice_side(self) -> int:
         dice_side = self.consume_or_fail(

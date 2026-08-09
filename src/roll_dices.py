@@ -1,4 +1,4 @@
-from random import randint, shuffle
+from random import randint, shuffle, sample
 from regex import split, compile as re_compile
 try:
     from .parse_dices import DiceType, DiceParser
@@ -65,7 +65,14 @@ def roll_dices(parsed: DiceParser) -> list[int]:
     
     result = []
     remaining_dices = parsed.dice_number
-    
+
+    if parsed.dice_type == DiceType.unique:
+        fail_if(remaining_dices > parsed.dice_side, 
+                f"Impossible de lancer {remaining_dices} dés uniques sur un dé à {parsed.dice_side} faces")
+        
+        result = sample(range(1, parsed.dice_side + 1), remaining_dices)
+        remaining_dices = 0
+
     while True:
         if parsed.dice_type == DiceType.explode and result != []:
             if result[-1] == parsed.dice_side:
