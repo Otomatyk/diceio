@@ -12,7 +12,7 @@ shadowrun_mode = set()
 
 IGNORED_COMMANDS = frozenset(["levels", "rank", ""])
 
-DICES_CMD_PATTERN = re_compile(r"^\d*[de].*")
+DICES_CMD_PATTERN = re_compile(r"^\d*(?:ud|d|e).*")
 CHOICES_CMD_PATTERN = re_compile(r"^\d*[lu].*")
 
 def run_cmd(cmd: str, user_id) -> str:
@@ -34,7 +34,7 @@ def run_cmd(cmd: str, user_id) -> str:
     try:
         if match(DICES_CMD_PATTERN, cmd):
             return run_dices_cmd(cmd.replace(" ", ""), user_id in shadowrun_mode)
-        
+
         if match(CHOICES_CMD_PATTERN, cmd):
             return run_choice_command(cmd)
 
